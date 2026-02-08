@@ -21,12 +21,13 @@ final class CommandRegistry
 
     public function dispatch(Update $update, TelegramClientInterface $client): void
     {
+        if (!$update->isCommand()) {
+            return;
+        }
         $command = $update->commandName();
-
         if (!isset($this->commands[$command])) {
             return;
         }
-
         $this->commands[$command]->handle(
             new CommandContext($update, $client)
         );

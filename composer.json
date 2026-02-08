@@ -6,6 +6,11 @@
             "Aymericcucherousset\\TelegramBot\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Fake\\": "tests/Fake/"
+        }
+    },
     "authors": [
         {
             "name": "aymericcucherousset",
