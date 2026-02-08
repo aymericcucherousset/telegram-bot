@@ -3,7 +3,7 @@
 ## Installation
 
 ```bash
-composer require vendor/telegram-bot
+composer require aymericccuherousset/telegram-bot
 ```
 
 ## Usage
