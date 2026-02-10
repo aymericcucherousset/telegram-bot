@@ -7,7 +7,7 @@ namespace Aymericcucherousset\TelegramBot\Command;
 use Aymericcucherousset\TelegramBot\Update\Update;
 use Aymericcucherousset\TelegramBot\Api\TelegramClientInterface;
 
-final class CommandRegistry
+final class CommandRegistry implements CommandRegistryInterface
 {
     /**
      * @var array<string, CommandInterface>

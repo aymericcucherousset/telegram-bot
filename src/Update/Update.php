@@ -8,7 +8,8 @@ final readonly class Update
 {
     public function __construct(
         public int $id,
-        public ?Message $message = null
+        public ?Message $message = null,
+        public ?string $type = null
     ) {}
 
     public function isCommand(): bool
@@ -19,5 +20,13 @@ final readonly class Update
     public function commandName(): string
     {
         return $this->message?->commandName() ?? '';
+    }
+
+    /**
+     * @return string[]
+     */
+    public function commandArguments(): array
+    {
+        return $this->message?->commandArguments() ?? [];
     }
 }
