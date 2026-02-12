@@ -9,6 +9,7 @@ use Psr\Http\Client\ClientExceptionInterface;
 use Aymericcucherousset\TelegramBot\Value\ChatId;
 use Aymericcucherousset\TelegramBot\Value\ParseMode;
 use Aymericcucherousset\TelegramBot\Exception\ApiException;
+use Aymericcucherousset\TelegramBot\Keyboard\InlineKeyboardMarkup;
 
 final class HttpTelegramClient implements TelegramClientInterface
 {
@@ -23,7 +24,8 @@ final class HttpTelegramClient implements TelegramClientInterface
     public function sendMessage(
         ChatId $chatId,
         string $text,
-        ParseMode $mode = ParseMode::Plain
+        ParseMode $mode = ParseMode::Plain,
+        ?InlineKeyboardMarkup $keyboard = null
     ): void {
         $payload = [
             'chat_id' => (string) $chatId,
@@ -32,6 +34,10 @@ final class HttpTelegramClient implements TelegramClientInterface
 
         if ($mode->telegramValue() !== null) {
             $payload['parse_mode'] = $mode->telegramValue();
+        }
+
+        if ($keyboard !== null) {
+            $payload['reply_markup'] = $keyboard->toArray();
         }
 
         $request = $this->requestFactory->create(

@@ -5,26 +5,24 @@ declare(strict_types=1);
 namespace Aymericcucherousset\TelegramBot\Bot;
 
 use Aymericcucherousset\TelegramBot\Update\Update;
-use Aymericcucherousset\TelegramBot\Command\CommandRegistry;
-use Aymericcucherousset\TelegramBot\Command\CommandInterface;
-use Aymericcucherousset\TelegramBot\Api\TelegramClientInterface;
+use Aymericcucherousset\TelegramBot\Handler\HandlerInterface;
+use Aymericcucherousset\TelegramBot\Registry\HandlerRegistry;
 
 final class Bot
 {
     public function __construct(
-        private TelegramClientInterface $client,
-        private CommandRegistry $commands = new CommandRegistry()
+        private HandlerRegistry $handlers = new HandlerRegistry()
     ) {}
 
-    public function onCommand(string $name, CommandInterface $command): void
+    public function onCommand(string $name, HandlerInterface $handler): void
     {
-        $this->commands->register($name, $command);
+        $this->handlers->register($name, $handler);
     }
 
     public function handle(Update $update): void
     {
-        if ($update->isCommand()) {
-            $this->commands->dispatch($update, $this->client);
+        if ($update->isCommand() || $update->isCallbackQuery()) {
+            $this->handlers->dispatch($update);
         }
     }
 }

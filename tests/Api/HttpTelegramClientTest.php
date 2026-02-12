@@ -145,4 +145,44 @@ final class HttpTelegramClientTest extends TestCase
         $this->expectException(ApiException::class);
         $client->sendMessage(new ChatId(123), 'hi');
     }
+
+    public function testSendMessageWithKeyboard(): void
+    {
+        $request = $this->createMock(RequestInterface::class);
+        $factory = $this->createMock(RequestFactoryInterface::class);
+        $factory->expects(self::once())
+            ->method('create')
+            ->with(
+                'POST',
+                self::stringContains('/botTOKEN/sendMessage'),
+                self::arrayHasKey('Content-Type'),
+                self::callback(static function ($json) {
+                    /** @var string $json */
+                    $data = json_decode($json, true);
+                    return is_array($data)
+                        && isset($data['chat_id'], $data['text'], $data['reply_markup'])
+                        && $data['chat_id'] === '123'
+                        && $data['text'] === 'hi'
+                        && is_array($data['reply_markup'])
+                        && isset($data['reply_markup']['inline_keyboard']);
+                })
+            )
+            ->willReturn($request);
+
+        $response = $this->createMock(ResponseInterface::class);
+        $response->method('getStatusCode')->willReturn(200);
+        $response->method('getBody')->willReturn(json_encode(['ok' => true]));
+
+        $http = $this->createMock(ClientInterface::class);
+        $http->expects(self::once())
+            ->method('sendRequest')
+            ->with($request)
+            ->willReturn($response);
+
+        $client = $this->makeClient($http, $factory);
+        $keyboard = new \Aymericcucherousset\TelegramBot\Keyboard\InlineKeyboardMarkup([
+            [\Aymericcucherousset\TelegramBot\Keyboard\InlineKeyboardButton::callback('Test', 'cb')],
+        ]);
+        $client->sendMessage(new ChatId(123), 'hi', ParseMode::Plain, $keyboard);
+    }
 }

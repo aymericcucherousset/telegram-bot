@@ -7,7 +7,7 @@ namespace Aymericcucherousset\TelegramBot\Attribute;
 use Attribute;
 
 #[Attribute(Attribute::TARGET_CLASS)]
-final class AsTelegramCommand implements AsTelegramAttributeInterface
+final class AsTelegramCallbackQuery implements AsTelegramAttributeInterface
 {
     public function __construct(
         private readonly string $name,

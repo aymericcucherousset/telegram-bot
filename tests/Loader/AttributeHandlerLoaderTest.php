@@ -5,52 +5,52 @@ declare(strict_types=1);
 namespace Aymericcucherousset\TelegramBot\Tests\Command;
 
 use PHPUnit\Framework\TestCase;
-use Aymericcucherousset\TelegramBot\Command\AttributeCommandLoader;
-use Aymericcucherousset\TelegramBot\Command\CommandRegistryInterface;
-use Aymericcucherousset\TelegramBot\Command\CommandInterface;
+use Aymericcucherousset\TelegramBot\Handler\HandlerInterface;
 use Aymericcucherousset\TelegramBot\Attribute\AsTelegramCommand;
+use Aymericcucherousset\TelegramBot\Loader\AttributeHandlerLoader;
+use Aymericcucherousset\TelegramBot\Registry\HandlerRegistryInterface;
 
 /**
  * Test registry for command registration tracking
  */
-class TestRegistry implements CommandRegistryInterface
+class TestRegistry implements HandlerRegistryInterface
 {
     /**
-     * @var array<int, array{string, CommandInterface}>
+     * @var array<int, array{string, HandlerInterface}>
      */
     public array $calls = [];
-    public function register(string $name, CommandInterface $command): void
+    public function register(string $name, HandlerInterface $handler): void
     {
-        $this->calls[] = [$name, $command];
+        $this->calls[] = [$name, $handler];
     }
 }
 
 
-use Aymericcucherousset\TelegramBot\Command\CommandContext;
+use Aymericcucherousset\TelegramBot\Update\Update;
 
-class PingCommand implements CommandInterface
+class PingCommand implements HandlerInterface
 {
-    public function handle(CommandContext $context): void {}
+    public function handle(Update $update): void {}
 }
 
 #[AsTelegramCommand('ping')]
 class PingCommandWithAttribute extends PingCommand {}
 
-class StartCommand implements CommandInterface
+class StartCommand implements HandlerInterface
 {
-    public function handle(CommandContext $context): void {}
+    public function handle(Update $update): void {}
 }
 
 #[AsTelegramCommand('start')]
 class StartCommandWithAttribute extends StartCommand {}
 
-final class AttributeCommandLoaderTest extends TestCase
+final class AttributeHandlerLoaderTest extends TestCase
 {
     public function testRegistersCommandWithAttribute(): void
     {
         $command = new PingCommandWithAttribute();
         $registry = new TestRegistry();
-        $loader = new AttributeCommandLoader();
+        $loader = new AttributeHandlerLoader();
         $loader->load([$command], $registry);
         /** @var TestRegistry $registry */
         self::assertCount(1, $registry->calls);
@@ -62,7 +62,7 @@ final class AttributeCommandLoaderTest extends TestCase
     {
         $command = new PingCommand();
         $registry = new TestRegistry();
-        $loader = new AttributeCommandLoader();
+        $loader = new AttributeHandlerLoader();
         $loader->load([$command], $registry);
         /** @var TestRegistry $registry */
         self::assertCount(0, $registry->calls);
@@ -73,7 +73,7 @@ final class AttributeCommandLoaderTest extends TestCase
         $ping = new PingCommandWithAttribute();
         $start = new StartCommandWithAttribute();
         $registry = new TestRegistry();
-        $loader = new AttributeCommandLoader();
+        $loader = new AttributeHandlerLoader();
         $loader->load([$ping, $start], $registry);
         /** @var TestRegistry $registry */
         self::assertCount(2, $registry->calls);

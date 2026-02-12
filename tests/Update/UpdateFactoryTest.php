@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Aymericcucherousset\TelegramBot\Tests\Update;
 
 use PHPUnit\Framework\TestCase;
-use Aymericcucherousset\TelegramBot\Value\ChatId;
 use Aymericcucherousset\TelegramBot\Update\UpdateFactory;
 
 final class UpdateFactoryTest extends TestCase
@@ -107,5 +106,26 @@ final class UpdateFactoryTest extends TestCase
             ],
             'update_id' => 456,
         ]));
+    }
+
+    public function testCreatesUpdateFromCallbackQuery(): void
+    {
+        $factory = new UpdateFactory();
+
+        $update = $factory->fromJson((string) json_encode([
+            'callback_query' => [
+                'id' => 'abc123',
+                'data' => 'some_data',
+                'message' => [
+                    'message_id' => 190,
+                    'chat' => ['id' => 123],
+                ],
+            ],
+            'update_id' => 456,
+        ]));
+
+        self::assertSame('callback_query', $update->type);
+        self::assertSame('some_data', $update->callbackQuery?->data);
+        self::assertSame(123, $update->callbackQuery->chatId->value());
     }
 }
