@@ -107,6 +107,13 @@ final class UpdateFactory
             }
             return new Update(
                 id: (int) $payload['update_id'],
+                message: new Message(
+                    id: (int) $callback['message']['message_id'],
+                    chatId: new ChatId($chatIdValue),
+                    fromUserId: null,
+                    text: null,
+                    date: null
+                ),
                 callbackQuery: new CallbackQuery(
                     id: $callback['id'],
                     data: $callback['data'],
