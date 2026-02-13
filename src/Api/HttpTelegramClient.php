@@ -6,10 +6,8 @@ namespace Aymericcucherousset\TelegramBot\Api;
 
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Client\ClientExceptionInterface;
-use Aymericcucherousset\TelegramBot\Value\ChatId;
-use Aymericcucherousset\TelegramBot\Value\ParseMode;
 use Aymericcucherousset\TelegramBot\Exception\ApiException;
-use Aymericcucherousset\TelegramBot\Keyboard\InlineKeyboardMarkup;
+use Aymericcucherousset\TelegramBot\Message\OutboundMessageInterface;
 
 final class HttpTelegramClient implements TelegramClientInterface
 {
@@ -21,28 +19,22 @@ final class HttpTelegramClient implements TelegramClientInterface
         private string $token
     ) {}
 
-    public function sendMessage(
-        ChatId $chatId,
-        string $text,
-        ParseMode $mode = ParseMode::Plain,
-        ?InlineKeyboardMarkup $keyboard = null
-    ): void {
-        $payload = [
-            'chat_id' => (string) $chatId,
-            'text' => $text,
-        ];
+    public function send(OutboundMessageInterface $message): void
+    {
+        $this->request(
+            $message->method(),
+            $message->toArray()
+        );
+    }
 
-        if ($mode->telegramValue() !== null) {
-            $payload['parse_mode'] = $mode->telegramValue();
-        }
-
-        if ($keyboard !== null) {
-            $payload['reply_markup'] = $keyboard->toArray();
-        }
-
+    /**
+     * @param mixed[] $payload
+     */
+    private function request(string $method, array $payload): void
+    {
         $request = $this->requestFactory->create(
             'POST',
-            self::API_BASE . $this->token . '/sendMessage',
+            self::API_BASE . $this->token . '/' . $method,
             ['Content-Type' => 'application/json'],
             json_encode($payload, JSON_THROW_ON_ERROR)
         );

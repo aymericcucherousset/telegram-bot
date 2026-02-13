@@ -46,7 +46,7 @@ final class HttpTelegramClientTest extends TestCase
                         return false;
                     }
                     return isset($data['chat_id'], $data['text'])
-                        && $data['chat_id'] === '123'
+                        && $data['chat_id'] === 123
                         && $data['text'] === 'hi'
                         && !isset($data['parse_mode']);
                 })
@@ -64,7 +64,13 @@ final class HttpTelegramClientTest extends TestCase
             ->willReturn($response);
 
         $client = $this->makeClient($http, $factory);
-        $client->sendMessage(new ChatId(123), 'hi', ParseMode::Plain);
+        $message = new \Aymericcucherousset\TelegramBot\Message\TextMessage(
+            new \Aymericcucherousset\TelegramBot\Value\ChatId(123),
+            'hi',
+            null,
+            \Aymericcucherousset\TelegramBot\Value\ParseMode::Plain
+        );
+        $client->send($message);
     }
 
     public function testSendMessageIncludesParseModeIfNotPlain(): void
@@ -93,7 +99,13 @@ final class HttpTelegramClientTest extends TestCase
         $http->method('sendRequest')->willReturn($response);
 
         $client = $this->makeClient($http, $factory);
-        $client->sendMessage(new ChatId(123), 'hi', ParseMode::Markdown);
+        $message = new \Aymericcucherousset\TelegramBot\Message\TextMessage(
+            new \Aymericcucherousset\TelegramBot\Value\ChatId(123),
+            'hi',
+            null,
+            \Aymericcucherousset\TelegramBot\Value\ParseMode::Markdown
+        );
+        $client->send($message);
     }
 
     public function testHttpExceptionIsWrapped(): void
@@ -107,7 +119,13 @@ final class HttpTelegramClientTest extends TestCase
 
         $client = $this->makeClient($http, $factory);
         $this->expectException(ApiException::class);
-        $client->sendMessage(new ChatId(123), 'hi');
+        $message = new \Aymericcucherousset\TelegramBot\Message\TextMessage(
+            new \Aymericcucherousset\TelegramBot\Value\ChatId(123),
+            'hi',
+            null,
+            \Aymericcucherousset\TelegramBot\Value\ParseMode::Plain
+        );
+        $client->send($message);
     }
 
     public function testNon200StatusThrows(): void
@@ -125,7 +143,13 @@ final class HttpTelegramClientTest extends TestCase
 
         $client = $this->makeClient($http, $factory);
         $this->expectException(ApiException::class);
-        $client->sendMessage(new ChatId(123), 'hi');
+        $message = new \Aymericcucherousset\TelegramBot\Message\TextMessage(
+            new \Aymericcucherousset\TelegramBot\Value\ChatId(123),
+            'hi',
+            null,
+            \Aymericcucherousset\TelegramBot\Value\ParseMode::Plain
+        );
+        $client->send($message);
     }
 
     public function testJsonOkFalseThrows(): void
@@ -143,7 +167,13 @@ final class HttpTelegramClientTest extends TestCase
 
         $client = $this->makeClient($http, $factory);
         $this->expectException(ApiException::class);
-        $client->sendMessage(new ChatId(123), 'hi');
+        $message = new \Aymericcucherousset\TelegramBot\Message\TextMessage(
+            new \Aymericcucherousset\TelegramBot\Value\ChatId(123),
+            'hi',
+            null,
+            \Aymericcucherousset\TelegramBot\Value\ParseMode::Plain
+        );
+        $client->send($message);
     }
 
     public function testSendMessageWithKeyboard(): void
@@ -161,7 +191,7 @@ final class HttpTelegramClientTest extends TestCase
                     $data = json_decode($json, true);
                     return is_array($data)
                         && isset($data['chat_id'], $data['text'], $data['reply_markup'])
-                        && $data['chat_id'] === '123'
+                        && $data['chat_id'] === 123
                         && $data['text'] === 'hi'
                         && is_array($data['reply_markup'])
                         && isset($data['reply_markup']['inline_keyboard']);
@@ -183,6 +213,12 @@ final class HttpTelegramClientTest extends TestCase
         $keyboard = new \Aymericcucherousset\TelegramBot\Keyboard\InlineKeyboardMarkup([
             [\Aymericcucherousset\TelegramBot\Keyboard\InlineKeyboardButton::callback('Test', 'cb')],
         ]);
-        $client->sendMessage(new ChatId(123), 'hi', ParseMode::Plain, $keyboard);
+        $message = new \Aymericcucherousset\TelegramBot\Message\TextMessage(
+            new \Aymericcucherousset\TelegramBot\Value\ChatId(123),
+            'hi',
+            $keyboard,
+            \Aymericcucherousset\TelegramBot\Value\ParseMode::Plain
+        );
+        $client->send($message);
     }
 }
