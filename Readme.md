@@ -51,20 +51,9 @@ final class PingCommand implements HandlerInterface
             return;
         }
 
-        $keyboard = new InlineKeyboardMarkup([
-            [
-                InlineKeyboardButton::callback('📦 Produits', 'products'),
-                InlineKeyboardButton::callback('🧾 Commandes', 'orders'),
-            ],
-            [
-                InlineKeyboardButton::url('🌐 Site', 'https://example.com'),
-            ],
-        ]);
-
         $textMessage = new TextMessage(
             chatId: $message->chatId,
             text: 'pong 🏓',
-            keyboard: $keyboard,
         );
         $this->client->send($textMessage);
     }
