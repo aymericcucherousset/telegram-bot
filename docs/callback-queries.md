@@ -10,7 +10,7 @@ Implement a handler class with the `AsTelegramCallbackQuery` attribute:
 use Aymericcucherousset\TelegramBot\Api\HttpTelegramClient;
 use Aymericcucherousset\TelegramBot\Handler\HandlerInterface;
 use Aymericcucherousset\TelegramBot\Attribute\AsTelegramCallbackQuery;
-use Aymericcucherousset\TelegramBot\Message\EditMessageText;
+use Aymericcucherousset\TelegramBot\Method\Message\EditMessageText;
 use Aymericcucherousset\TelegramBot\Update\Update;
 use Aymericcucherousset\TelegramBot\Value\ParseMode;
 

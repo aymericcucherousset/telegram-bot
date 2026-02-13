@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Aymericcucherousset\TelegramBot\Message;
+namespace Aymericcucherousset\TelegramBot\Method\Message;
 
 use Aymericcucherousset\TelegramBot\Value\ChatId;
 use Aymericcucherousset\TelegramBot\Value\ParseMode;
 use Aymericcucherousset\TelegramBot\Keyboard\InlineKeyboardMarkup;
+use Aymericcucherousset\TelegramBot\Method\TelegramMethod;
 
-final class EditMessageText implements OutboundMessageInterface
+final class TextMessage implements TelegramMethod
 {
     public function __construct(
         private readonly ChatId $chatId,
-        private readonly int $messageId,
         private readonly string $text,
         private readonly ?InlineKeyboardMarkup $keyboard = null,
         private readonly ParseMode $mode = ParseMode::Plain
     ) {}
 
-    public function method(): string
+    public function getMethod(): string
     {
-        return 'editMessageText';
+        return 'sendMessage';
     }
 
     /**
@@ -30,7 +30,6 @@ final class EditMessageText implements OutboundMessageInterface
     {
         $payload = [
             'chat_id' => $this->chatId->value(),
-            'message_id' => $this->messageId,
             'text' => $this->text,
         ];
 

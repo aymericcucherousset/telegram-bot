@@ -31,7 +31,7 @@ composer require aymericcucherousset/telegram-bot
 use Aymericcucherousset\TelegramBot\Api\HttpTelegramClient;
 use Aymericcucherousset\TelegramBot\Handler\HandlerInterface;
 use Aymericcucherousset\TelegramBot\Attribute\AsTelegramCommand;
-use Aymericcucherousset\TelegramBot\Message\TextMessage;
+use Aymericcucherousset\TelegramBot\Method\Message\TextMessage;
 use Aymericcucherousset\TelegramBot\Keyboard\InlineKeyboardMarkup;
 use Aymericcucherousset\TelegramBot\Keyboard\InlineKeyboardButton;
 use Aymericcucherousset\TelegramBot\Update\Update;
@@ -63,7 +63,7 @@ final class PingCommand implements HandlerInterface
 ## Example: Inline Keyboard
 
 ```php
-use Aymericcucherousset\TelegramBot\Message\TextMessage;
+use Aymericcucherousset\TelegramBot\Method\Message\TextMessage;
 use Aymericcucherousset\TelegramBot\Keyboard\InlineKeyboardMarkup;
 use Aymericcucherousset\TelegramBot\Keyboard\InlineKeyboardButton;
 use Aymericcucherousset\TelegramBot\Value\ChatId;
@@ -122,6 +122,9 @@ final class ProductsCallbackQuery implements HandlerInterface
 src/
 ├── Api/         # PSR-18 HTTP client, API interfaces
 ├── Attribute/   # Command/callback attributes
+├── Method/     # TelegramMethod interface
+│   ├── TelegramMethod.php   # TelegramMethod interface
+│   └── Message/             # Message-related methods (SendMessage, EditMessageText, etc.)
 ├── Bot/         # Bot orchestration
 ├── Exception/   # Domain & API exceptions
 ├── Handler/     # Handler interfaces/loaders

@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Aymericcucherousset\TelegramBot\Message;
+namespace Aymericcucherousset\TelegramBot\Method\Message;
 
 use Aymericcucherousset\TelegramBot\Keyboard\InlineKeyboardMarkup;
 use Aymericcucherousset\TelegramBot\Value\ChatId;
+use Aymericcucherousset\TelegramBot\Method\TelegramMethod;
 
-final class PhotoMessage implements OutboundMessageInterface
+final class PhotoMessage implements TelegramMethod
 {
     public function __construct(
         private readonly ChatId $chatId,
@@ -16,7 +17,7 @@ final class PhotoMessage implements OutboundMessageInterface
         private readonly ?InlineKeyboardMarkup $keyboard = null,
     ) {}
 
-    public function method(): string
+    public function getMethod(): string
     {
         return 'sendPhoto';
     }

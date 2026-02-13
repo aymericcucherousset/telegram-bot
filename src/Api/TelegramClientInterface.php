@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Aymericcucherousset\TelegramBot\Api;
 
-use Aymericcucherousset\TelegramBot\Message\OutboundMessageInterface;
+use Aymericcucherousset\TelegramBot\Method\TelegramMethod;
 
 interface TelegramClientInterface
 {
-    public function send(OutboundMessageInterface $message): void;
+    public function send(TelegramMethod $message): void;
 }

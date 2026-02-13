@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Aymericcucherousset\TelegramBot\Message;
+namespace Aymericcucherousset\TelegramBot\Method\Message;
 
 use Aymericcucherousset\TelegramBot\Value\ChatId;
+use Aymericcucherousset\TelegramBot\Method\TelegramMethod;
 
-final class DeleteMessages implements OutboundMessageInterface
+final class DeleteMessages implements TelegramMethod
 {
     /**
      * @param ChatId $chatId
@@ -17,7 +18,7 @@ final class DeleteMessages implements OutboundMessageInterface
         private readonly array $messageIds,
     ) {}
 
-    public function method(): string
+    public function getMethod(): string
     {
         return 'deleteMessages';
     }

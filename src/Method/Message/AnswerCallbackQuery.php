@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Aymericcucherousset\TelegramBot\Message;
+namespace Aymericcucherousset\TelegramBot\Method\Message;
 
-final class AnswerCallbackQuery implements OutboundMessageInterface
+use Aymericcucherousset\TelegramBot\Method\TelegramMethod;
+
+final class AnswerCallbackQuery implements TelegramMethod
 {
     public function __construct(
         private readonly string $callbackQueryId,
@@ -12,7 +14,7 @@ final class AnswerCallbackQuery implements OutboundMessageInterface
         private readonly bool $showAlert = false,
     ) {}
 
-    public function method(): string
+    public function getMethod(): string
     {
         return 'answerCallbackQuery';
     }

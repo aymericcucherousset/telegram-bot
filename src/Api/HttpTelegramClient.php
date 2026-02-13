@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Aymericcucherousset\TelegramBot\Api;
 
+use Aymericcucherousset\TelegramBot\Method\TelegramMethod;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Client\ClientExceptionInterface;
 use Aymericcucherousset\TelegramBot\Exception\ApiException;
-use Aymericcucherousset\TelegramBot\Message\OutboundMessageInterface;
 
 final class HttpTelegramClient implements TelegramClientInterface
 {
@@ -19,11 +19,11 @@ final class HttpTelegramClient implements TelegramClientInterface
         private string $token
     ) {}
 
-    public function send(OutboundMessageInterface $message): void
+    public function send(TelegramMethod $message): void
     {
         $this->request(
-            $message->method(),
-            $message->toArray()
+            method: $message->getMethod(),
+            payload: $message->toArray()
         );
     }
 
