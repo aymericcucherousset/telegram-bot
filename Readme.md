@@ -160,7 +160,7 @@ ASCII Architecture:
 
 - **Domain-Driven Design**: Core logic and value objects are decoupled from infrastructure.
 - **Value Objects**: (ChatId, ParseMode, UserId) ensure type safety and immutability.
-- **OutboundMessageInterface**: Encapsulates all outbound API calls for extensibility.
+- **TelegramMethod**: Encapsulates all outbound API calls for extensibility.
 - **Extensible**: Add new message types or handlers without modifying core logic.
 - **Strict Types**: All code uses `declare(strict_types=1)`.
 
