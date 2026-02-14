@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Aymericcucherousset\TelegramBot\Method\Message;
+namespace Aymericcucherousset\TelegramBot\Method\CallbackQuery;
 
 use Aymericcucherousset\TelegramBot\Method\TelegramMethod;
 
