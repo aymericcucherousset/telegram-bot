@@ -7,6 +7,12 @@ namespace Aymericcucherousset\TelegramBot\Method\Message;
 use Aymericcucherousset\TelegramBot\Value\ChatId;
 use Aymericcucherousset\TelegramBot\Method\TelegramMethod;
 
+/**
+ * Represents the deleteMessages method for the Telegram Bot API.
+ * @see https://core.telegram.org/bots/api#deletemessages
+ *
+ * @implements TelegramMethod<bool>
+ */
 final class DeleteMessages implements TelegramMethod
 {
     /**
@@ -32,5 +38,15 @@ final class DeleteMessages implements TelegramMethod
             'chat_id' => $this->chatId->value(),
             'message_ids' => $this->messageIds,
         ];
+    }
+
+    /**
+    * @param array{ok: bool} $result
+    *
+    * @return bool
+    */
+    public function mapResponse(array $result): bool
+    {
+        return $result['ok'];
     }
 }

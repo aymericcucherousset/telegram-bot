@@ -11,7 +11,7 @@ use Aymericcucherousset\TelegramBot\Exception\ApiException;
 
 final class HttpTelegramClient implements TelegramClientInterface
 {
-    private const API_BASE = 'https://api.telegram.org/bot';
+    private const string API_BASE = 'https://api.telegram.org/bot';
 
     public function __construct(
         private ClientInterface $httpClient,
@@ -19,18 +19,27 @@ final class HttpTelegramClient implements TelegramClientInterface
         private string $token
     ) {}
 
-    public function send(TelegramMethod $message): void
+    /**
+     * @template TResponse
+     * @param TelegramMethod<TResponse> $method
+     * @return TResponse
+     */
+    public function send(TelegramMethod $method): mixed
     {
-        $this->request(
-            method: $message->getMethod(),
-            payload: $message->toArray()
+        $response = $this->request(
+            method: $method->getMethod(),
+            payload: $method->toArray()
         );
+
+        return $method->mapResponse($response);
     }
 
     /**
      * @param mixed[] $payload
+     *
+     * @return array<string, mixed> The 'result' field from the Telegram API response.
      */
-    private function request(string $method, array $payload): void
+    private function request(string $method, array $payload): array
     {
         $request = $this->requestFactory->create(
             'POST',
@@ -70,5 +79,8 @@ final class HttpTelegramClient implements TelegramClientInterface
                 'Telegram API error: ' . $description
             );
         }
+
+        /** @var array<string, mixed> $data */
+        return $data;
     }
 }

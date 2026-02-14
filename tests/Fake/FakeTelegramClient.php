@@ -9,5 +9,10 @@ use Aymericcucherousset\TelegramBot\Method\TelegramMethod;
 
 class FakeTelegramClient implements TelegramClientInterface
 {
-    public function send(TelegramMethod $message): void {}
+    public function send(TelegramMethod $method): mixed
+    {
+        return $method->mapResponse([
+            'ok' => true,
+        ]);
+    }
 }

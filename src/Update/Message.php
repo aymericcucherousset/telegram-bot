@@ -9,6 +9,21 @@ use Aymericcucherousset\TelegramBot\Value\UserId;
 
 final readonly class Message
 {
+    /**
+     * @param array{message_id: int, chat: array{id: int|string}, from?: array{id: int}, text?: string, date?: int} $data
+     * @return Message
+     */
+    public static function fromTelegram(array $data): self
+    {
+        return new self(
+            id: $data['message_id'],
+            chatId: new ChatId($data['chat']['id']),
+            fromUserId: isset($data['from']['id']) ? new UserId($data['from']['id']) : null,
+            text: $data['text'] ?? null,
+            date: $data['date'] ?? null
+        );
+    }
+
     public function __construct(
         public int $id,
         public ChatId $chatId,

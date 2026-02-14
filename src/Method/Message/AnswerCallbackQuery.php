@@ -6,6 +6,12 @@ namespace Aymericcucherousset\TelegramBot\Method\Message;
 
 use Aymericcucherousset\TelegramBot\Method\TelegramMethod;
 
+/**
+ * Represents the answerCallbackQuery method for the Telegram Bot API.
+ * @see https://core.telegram.org/bots/api#answercallbackquery
+ *
+ * @implements TelegramMethod<bool>
+ */
 final class AnswerCallbackQuery implements TelegramMethod
 {
     public function __construct(
@@ -29,5 +35,15 @@ final class AnswerCallbackQuery implements TelegramMethod
             'text' => $this->text,
             'show_alert' => $this->showAlert,
         ]);
+    }
+
+    /**
+    * @param array{ok: bool} $result
+    *
+    * @return bool
+    */
+    public function mapResponse(array $result): bool
+    {
+        return $result['ok'];
     }
 }

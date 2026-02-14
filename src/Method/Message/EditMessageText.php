@@ -9,6 +9,12 @@ use Aymericcucherousset\TelegramBot\Value\ParseMode;
 use Aymericcucherousset\TelegramBot\Keyboard\InlineKeyboardMarkup;
 use Aymericcucherousset\TelegramBot\Method\TelegramMethod;
 
+/**
+ * Represents the editMessageText method for the Telegram Bot API.
+ * @see https://core.telegram.org/bots/api#editmessagetext
+ *
+ * @implements TelegramMethod<bool>
+ */
 final class EditMessageText implements TelegramMethod
 {
     public function __construct(
@@ -44,5 +50,15 @@ final class EditMessageText implements TelegramMethod
         }
 
         return $payload;
+    }
+
+    /**
+    * @param array{ok: bool} $result
+    *
+    * @return bool
+    */
+    public function mapResponse(array $result): bool
+    {
+        return $result['ok'];
     }
 }

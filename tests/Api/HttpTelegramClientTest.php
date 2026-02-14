@@ -56,7 +56,15 @@ final class HttpTelegramClientTest extends TestCase
 
         $response = $this->createMock(ResponseInterface::class);
         $response->method('getStatusCode')->willReturn(200);
-        $response->method('getBody')->willReturn(json_encode(['ok' => true]));
+        $response->method('getBody')->willReturn(json_encode([
+            'ok' => true,
+            'result' => [
+                'message_id' => 1,
+                'chat' => ['id' => 123],
+                'text' => 'hi',
+                'date' => time(),
+            ],
+        ]));
 
         $http = $this->createMock(ClientInterface::class);
         $http->expects(self::once())
@@ -92,9 +100,18 @@ final class HttpTelegramClientTest extends TestCase
             )
             ->willReturn($request);
 
+
         $response = $this->createMock(ResponseInterface::class);
         $response->method('getStatusCode')->willReturn(200);
-        $response->method('getBody')->willReturn(json_encode(['ok' => true]));
+        $response->method('getBody')->willReturn(json_encode([
+            'ok' => true,
+            'result' => [
+                'message_id' => 1,
+                'chat' => ['id' => 123],
+                'text' => 'hi',
+                'date' => time(),
+            ],
+        ]));
 
         $http = $this->createMock(ClientInterface::class);
         $http->method('sendRequest')->willReturn($response);
@@ -202,7 +219,15 @@ final class HttpTelegramClientTest extends TestCase
 
         $response = $this->createMock(ResponseInterface::class);
         $response->method('getStatusCode')->willReturn(200);
-        $response->method('getBody')->willReturn(json_encode(['ok' => true]));
+        $response->method('getBody')->willReturn(json_encode([
+            'ok' => true,
+            'result' => [
+                'message_id' => 1,
+                'chat' => ['id' => 123],
+                'text' => 'hi',
+                'date' => time(),
+            ],
+        ]));
 
         $http = $this->createMock(ClientInterface::class);
         $http->expects(self::once())

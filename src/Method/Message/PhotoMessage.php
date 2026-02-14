@@ -8,6 +8,12 @@ use Aymericcucherousset\TelegramBot\Keyboard\InlineKeyboardMarkup;
 use Aymericcucherousset\TelegramBot\Value\ChatId;
 use Aymericcucherousset\TelegramBot\Method\TelegramMethod;
 
+/**
+ * Represents the sendPhoto method for the Telegram Bot API.
+ * @see https://core.telegram.org/bots/api#sendphoto
+ *
+ * @implements TelegramMethod<bool>
+ */
 final class PhotoMessage implements TelegramMethod
 {
     public function __construct(
@@ -41,5 +47,15 @@ final class PhotoMessage implements TelegramMethod
         }
 
         return $payload;
+    }
+
+    /**
+    * @param array{ok: bool} $result
+    *
+    * @return bool
+    */
+    public function mapResponse(array $result): bool
+    {
+        return $result['ok'];
     }
 }

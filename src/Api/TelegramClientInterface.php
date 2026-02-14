@@ -8,5 +8,10 @@ use Aymericcucherousset\TelegramBot\Method\TelegramMethod;
 
 interface TelegramClientInterface
 {
-    public function send(TelegramMethod $message): void;
+    /**
+     * @template TResponse
+     * @param TelegramMethod<TResponse> $method
+     * @return TResponse
+     */
+    public function send(TelegramMethod $method): mixed;
 }

@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace Aymericcucherousset\TelegramBot\Method\Message;
 
-use Aymericcucherousset\TelegramBot\Value\ChatId;
-use Aymericcucherousset\TelegramBot\Value\ParseMode;
 use Aymericcucherousset\TelegramBot\Keyboard\InlineKeyboardMarkup;
 use Aymericcucherousset\TelegramBot\Method\TelegramMethod;
+use Aymericcucherousset\TelegramBot\Update\Message;
+use Aymericcucherousset\TelegramBot\Value\ChatId;
+use Aymericcucherousset\TelegramBot\Value\ParseMode;
 
+/**
+ * @implements TelegramMethod<Message>
+ */
 final class TextMessage implements TelegramMethod
 {
     public function __construct(
@@ -42,5 +46,15 @@ final class TextMessage implements TelegramMethod
         }
 
         return $payload;
+    }
+
+    /**
+    * @param array{ok: bool, result: array{message_id: int, chat: array{id: int|string}, from?: array{id: int}, text?: string, date?: int}} $result
+    *
+    * @return Message
+    */
+    public function mapResponse(array $result): Message
+    {
+        return Message::fromTelegram($result['result']);
     }
 }
