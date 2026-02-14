@@ -28,5 +28,9 @@
         "phpunit/phpunit": "^12.5",
         "phpstan/phpstan": "^2.1",
         "friendsofphp/php-cs-fixer": "^3.93"
+    },
+    "scripts": {
+        "lint": "vendor/bin/php-cs-fixer fix && vendor/bin/phpstan analyse",
+        "test": "vendor/bin/phpunit"
     }
 }
