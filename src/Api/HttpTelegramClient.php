@@ -7,17 +7,36 @@ namespace Aymericcucherousset\TelegramBot\Api;
 use Aymericcucherousset\TelegramBot\Method\TelegramMethod;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Client\ClientExceptionInterface;
+use Psr\Http\Message\RequestFactoryInterface as PsrRequestFactoryInterface;
+use Psr\Http\Message\StreamFactoryInterface;
 use Aymericcucherousset\TelegramBot\Exception\ApiException;
 
 final class HttpTelegramClient implements TelegramClientInterface
 {
     private const string API_BASE = 'https://api.telegram.org/bot';
 
+    /**
+     * Accepts either:
+     *   - $requestFactory: an instance of RequestFactoryInterface (custom or adapter)
+     *   - $requestFactory: a PSR-17 RequestFactoryInterface, and $streamFactory: a PSR-17 StreamFactoryInterface
+     */
+    private RequestFactoryInterface $requestFactory;
+
     public function __construct(
         private ClientInterface $httpClient,
-        private RequestFactoryInterface $requestFactory,
-        private string $token
-    ) {}
+        RequestFactoryInterface|PsrRequestFactoryInterface $requestFactory,
+        private string $token,
+        ?StreamFactoryInterface $streamFactory = null
+    ) {
+        if ($requestFactory instanceof PsrRequestFactoryInterface) {
+            if (!$streamFactory) {
+                throw new \InvalidArgumentException('StreamFactoryInterface is required when using PSR-17 RequestFactoryInterface');
+            }
+            $this->requestFactory = new PsrRequestFactoryAdapter($requestFactory, $streamFactory);
+        } else {
+            $this->requestFactory = $requestFactory;
+        }
+    }
 
     /**
      * @template TResponse
