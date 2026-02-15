@@ -88,7 +88,7 @@
 | User      | close                                                                                   |     ❌    |
 | Other     | setWebhook                                                                              |     ❌    |
 | Other     | deleteWebhook                                                                           |     ❌    |
-| Other     | getWebhookInfo                                                                          |     ❌    |
+| Other     | [getWebhookInfo](../src/Method/Webhook/WebhookInfo.php)                                 |     ✅    |
 | Other     | setPassportDataErrors                                                                   |     ❌    |
 | Other     | sendSticker                                                                             |     ❌    |
 | Other     | getStickerSet                                                                           |     ❌    |
