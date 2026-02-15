@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Aymericcucherousset\TelegramBot\Tests\Command;
 
-use PHPUnit\Framework\TestCase;
-use Aymericcucherousset\TelegramBot\Handler\HandlerInterface;
 use Aymericcucherousset\TelegramBot\Attribute\AsTelegramCommand;
+use Aymericcucherousset\TelegramBot\Handler\HandlerInterface;
 use Aymericcucherousset\TelegramBot\Loader\AttributeHandlerLoader;
 use Aymericcucherousset\TelegramBot\Registry\HandlerRegistryInterface;
+use Aymericcucherousset\TelegramBot\Update\Update;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test registry for command registration tracking
@@ -23,10 +24,9 @@ class TestRegistry implements HandlerRegistryInterface
     {
         $this->calls[] = [$name, $handler];
     }
+
+    public function dispatch(Update $update): void {}
 }
-
-
-use Aymericcucherousset\TelegramBot\Update\Update;
 
 class PingCommand implements HandlerInterface
 {

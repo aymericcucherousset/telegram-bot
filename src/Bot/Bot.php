@@ -7,13 +7,14 @@ namespace Aymericcucherousset\TelegramBot\Bot;
 use Aymericcucherousset\TelegramBot\Api\TelegramClientInterface;
 use Aymericcucherousset\TelegramBot\Handler\HandlerInterface;
 use Aymericcucherousset\TelegramBot\Registry\HandlerRegistry;
+use Aymericcucherousset\TelegramBot\Registry\HandlerRegistryInterface;
 use Aymericcucherousset\TelegramBot\Update\Update;
 
 final class Bot
 {
     public function __construct(
         private TelegramClientInterface $client,
-        private HandlerRegistry $handlers = new HandlerRegistry(),
+        private HandlerRegistryInterface $handlers = new HandlerRegistry(),
     ) {}
 
     public function getClient(): TelegramClientInterface
