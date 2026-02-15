@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Aymericcucherousset\TelegramBot\Update;
 
+use Aymericcucherousset\TelegramBot\Bot\Bot;
 use Aymericcucherousset\TelegramBot\Value\ChatId;
 
 final readonly class Update
 {
     public function __construct(
         public int $id,
+        public Bot $bot,
         public ?Message $message = null,
         public ?CallbackQuery $callbackQuery = null,
         public ?string $type = null

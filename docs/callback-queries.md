@@ -17,27 +17,33 @@ use Aymericcucherousset\TelegramBot\Value\ParseMode;
 #[AsTelegramCallbackQuery(name: 'products', description: 'Replies with the list of products')]
 final class ProductsCallbackQuery implements HandlerInterface
 {
-    public function __construct(
-        private readonly HttpTelegramClient $client,
-    ) {}
-
     public function handle(Update $update): void
     {
         $callbackQuery = $update->callbackQuery;
-
         if ($callbackQuery === null) {
             return;
         }
-
         $editMessage = new EditMessageText(
             chatId: $callbackQuery->chatId,
             messageId: $update->message->id,
             text: 'List of products : ...',
             mode: ParseMode::Markdown,
         );
-        $this->client->send($editMessage);
+        $update->bot->getClient()->send($editMessage);
     }
 }
+```
+
+## UpdateFactory Usage
+
+To create an `Update` object from incoming JSON, you must now pass a `Bot` instance as the second argument:
+
+```php
+use Aymericcucherousset\TelegramBot\Update\UpdateFactory;
+use Aymericcucherousset\TelegramBot\Bot\Bot;
+
+$bot = new Bot($client); // $client is your TelegramClientInterface implementation
+$update = UpdateFactory::fromJson($json, $bot);
 ```
 
 ## InlineKeyboardButton Callback Data

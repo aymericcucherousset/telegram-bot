@@ -13,30 +13,33 @@ final class BotTest extends TestCase
 {
     public function testPingCommandIsCalled(): void
     {
-        $bot = new Bot();
+        $bot = new Bot(new \Tests\Fake\FakeTelegramClient());
         $spy = new SpyCommand();
         $bot->onCommand('ping', $spy);
-        $update = new Update(1, new Message(1, new ChatId(123), null, '/ping'), type: 'message');
+        $message = new Message(1, new ChatId(123), null, '/ping');
+        $update = new Update(1, $bot, $message, null, 'message');
         $bot->handle($update);
         self::assertTrue($spy->called);
     }
 
     public function testNormalMessageDoesNothing(): void
     {
-        $bot = new Bot();
+        $bot = new Bot(new \Tests\Fake\FakeTelegramClient());
         $spy = new SpyCommand();
         $bot->onCommand('ping', $spy);
-        $update = new Update(2, new Message(2, new ChatId(123), null, 'hello world'), type: 'message');
+        $message = new Message(2, new ChatId(123), null, 'hello world');
+        $update = new Update(2, $bot, $message, null, 'message');
         $bot->handle($update);
         self::assertFalse($spy->called);
     }
 
     public function testUnknownCommandDoesNothing(): void
     {
-        $bot = new Bot();
+        $bot = new Bot(new \Tests\Fake\FakeTelegramClient());
         $spy = new SpyCommand();
         $bot->onCommand('ping', $spy);
-        $update = new Update(3, new Message(3, new ChatId(123), null, '/unknown'), type: 'message');
+        $message = new Message(3, new ChatId(123), null, '/unknown');
+        $update = new Update(3, $bot, $message, null, 'message');
         $bot->handle($update);
         self::assertFalse($spy->called);
     }

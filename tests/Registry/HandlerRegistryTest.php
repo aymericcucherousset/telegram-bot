@@ -25,7 +25,8 @@ final class HandlerRegistryTest extends TestCase
             }
         };
         $registry->register('start', $mockCommand);
-        $update = new Update(1, new Message(1, new ChatId(123), null, '/start'), null, 'message');
+        $bot = new \Aymericcucherousset\TelegramBot\Bot\Bot(new \Tests\Fake\FakeTelegramClient());
+        $update = new Update(1, $bot, new Message(1, new ChatId(123), null, '/start'), null, 'message');
         $registry->dispatch($update);
         self::assertTrue($mockCommand->called);
     }
@@ -49,7 +50,8 @@ final class HandlerRegistryTest extends TestCase
         };
         $registry->register('start', $mockA);
         $registry->register('ping', $mockB);
-        $update = new Update(2, new Message(2, new ChatId(123), null, '/ping'), null, 'message');
+        $bot = new \Aymericcucherousset\TelegramBot\Bot\Bot(new \Tests\Fake\FakeTelegramClient());
+        $update = new Update(2, $bot, new Message(2, new ChatId(123), null, '/ping'), null, 'message');
         $registry->dispatch($update);
         self::assertFalse($mockA->called);
         self::assertTrue($mockB->called);
@@ -66,7 +68,8 @@ final class HandlerRegistryTest extends TestCase
             }
         };
         $registry->register('start', $mock);
-        $update = new Update(3, new Message(3, new ChatId(123), null, '/unknown'), null, 'message');
+        $bot = new \Aymericcucherousset\TelegramBot\Bot\Bot(new \Tests\Fake\FakeTelegramClient());
+        $update = new Update(3, $bot, new Message(3, new ChatId(123), null, '/unknown'), null, 'message');
         // Should not throw, should not call
         $registry->dispatch($update);
         self::assertFalse($mock->called);
@@ -83,7 +86,8 @@ final class HandlerRegistryTest extends TestCase
             }
         };
         $registry->register('start', $mock);
-        $update = new Update(4, new Message(4, new ChatId(123), null, 'hello world'), null, 'message');
+        $bot = new \Aymericcucherousset\TelegramBot\Bot\Bot(new \Tests\Fake\FakeTelegramClient());
+        $update = new Update(4, $bot, new Message(4, new ChatId(123), null, 'hello world'), null, 'message');
         // Should not throw, should not call
         $registry->dispatch($update);
         self::assertFalse($mock->called);

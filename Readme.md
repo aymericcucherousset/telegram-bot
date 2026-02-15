@@ -34,30 +34,33 @@ use Aymericcucherousset\TelegramBot\Attribute\AsTelegramCommand;
 use Aymericcucherousset\TelegramBot\Method\Message\TextMessage;
 use Aymericcucherousset\TelegramBot\Keyboard\InlineKeyboardMarkup;
 use Aymericcucherousset\TelegramBot\Keyboard\InlineKeyboardButton;
+use Aymericcucherousset\TelegramBot\Bot\Bot;
 use Aymericcucherousset\TelegramBot\Update\Update;
 
 #[AsTelegramCommand(name: 'ping', description: 'Replies with pong')]
 final class PingCommand implements HandlerInterface
 {
-    public function __construct(
-        private readonly HttpTelegramClient $client,
-    ) {}
-
     public function handle(Update $update): void
     {
         $message = $update->message;
-
         if ($message === null) {
             return;
         }
-
         $textMessage = new TextMessage(
             chatId: $message->chatId,
             text: 'pong 🏓',
         );
-        $this->client->send($textMessage);
+        $update->bot->getClient()->send($textMessage);
     }
 }
+
+// Bot instantiation:
+$client = new HttpTelegramClient('TOKEN', $psr18Client); // $psr18Client is your PSR-18 HTTP client
+$bot = new Bot($client); // Optionally pass a custom HandlerRegistry as the 2nd argument
+
+// UpdateFactory usage:
+use Aymericcucherousset\TelegramBot\Update\UpdateFactory;
+$update = UpdateFactory::fromJson($json, $bot); // $json is the incoming update JSON string
 ```
 
 ## Example: Inline Keyboard
@@ -83,37 +86,42 @@ $message = new TextMessage(
 ## Example: CallbackQuery Handling
 
 ```php
-use Aymericcucherousset\TelegramBot\Api\HttpTelegramClient;
 use Aymericcucherousset\TelegramBot\Handler\HandlerInterface;
 use Aymericcucherousset\TelegramBot\Attribute\AsTelegramCallbackQuery;
-use Aymericcucherousset\TelegramBot\Message\EditMessageText;
+use Aymericcucherousset\TelegramBot\Method\Message\EditMessageText;
 use Aymericcucherousset\TelegramBot\Update\Update;
 use Aymericcucherousset\TelegramBot\Value\ParseMode;
 
 #[AsTelegramCallbackQuery(name: 'products', description: 'Replies with the list of products')]
 final class ProductsCallbackQuery implements HandlerInterface
 {
-    public function __construct(
-        private readonly HttpTelegramClient $client,
-    ) {}
-
     public function handle(Update $update): void
     {
         $callbackQuery = $update->callbackQuery;
-
         if ($callbackQuery === null) {
             return;
         }
-
         $editMessage = new EditMessageText(
             chatId: $callbackQuery->chatId,
             messageId: $update->message->id,
             text: 'List of products : ...',
             mode: ParseMode::Markdown,
         );
-        $this->client->send($editMessage);
+        $update->bot->getClient()->send($editMessage);
     }
 }
+```
+
+## UpdateFactory
+
+The `UpdateFactory` is responsible for creating `Update` objects from incoming Telegram JSON updates. It now requires a `Bot` instance as the second argument:
+
+```php
+use Aymericcucherousset\TelegramBot\Update\UpdateFactory;
+use Aymericcucherousset\TelegramBot\Bot\Bot;
+
+$bot = new Bot($client); // $client is your TelegramClientInterface implementation
+$update = UpdateFactory::fromJson($json, $bot);
 ```
 
 ## Architecture

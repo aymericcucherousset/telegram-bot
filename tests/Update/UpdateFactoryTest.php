@@ -12,7 +12,7 @@ final class UpdateFactoryTest extends TestCase
     public function testCreatesUpdateFromTextMessage(): void
     {
         $factory = new UpdateFactory();
-
+        $bot = new \Aymericcucherousset\TelegramBot\Bot\Bot(new \Tests\Fake\FakeTelegramClient());
         $update = $factory->fromJson((string) json_encode([
             'message' => [
                 'message_id' => 190,
@@ -20,7 +20,7 @@ final class UpdateFactoryTest extends TestCase
                 'chat' => ['id' => 123],
             ],
             'update_id' => 456,
-        ]));
+        ]), $bot);
 
         self::assertSame('message', $update->type);
         self::assertSame('hello', $update->message?->text);
@@ -31,7 +31,7 @@ final class UpdateFactoryTest extends TestCase
     public function testDetectsCommand(): void
     {
         $factory = new UpdateFactory();
-
+        $bot = new \Aymericcucherousset\TelegramBot\Bot\Bot(new \Tests\Fake\FakeTelegramClient());
         $update = $factory->fromJson((string) json_encode([
             'message' => [
                 'message_id' => 190,
@@ -39,7 +39,7 @@ final class UpdateFactoryTest extends TestCase
                 'chat' => ['id' => 123],
             ],
             'update_id' => 456,
-        ]));
+        ]), $bot);
 
         self::assertTrue($update->isCommand());
         self::assertSame('ping', $update->commandName());
@@ -49,7 +49,7 @@ final class UpdateFactoryTest extends TestCase
     public function testParsesCommandArguments(): void
     {
         $factory = new UpdateFactory();
-
+        $bot = new \Aymericcucherousset\TelegramBot\Bot\Bot(new \Tests\Fake\FakeTelegramClient());
         $update = $factory->fromJson((string) json_encode([
             'message' => [
                 'message_id' => 190,
@@ -57,7 +57,7 @@ final class UpdateFactoryTest extends TestCase
                 'chat' => ['id' => 123],
             ],
             'update_id' => 456,
-        ]));
+        ]), $bot);
 
         self::assertSame('ping', $update->commandName());
         self::assertSame(['foo', 'bar'], $update->commandArguments());
@@ -66,7 +66,7 @@ final class UpdateFactoryTest extends TestCase
     public function testDoesNotAlterRawText(): void
     {
         $factory = new UpdateFactory();
-
+        $bot = new \Aymericcucherousset\TelegramBot\Bot\Bot(new \Tests\Fake\FakeTelegramClient());
         $update = $factory->fromJson((string) json_encode([
             'message' => [
                 'message_id' => 190,
@@ -74,7 +74,7 @@ final class UpdateFactoryTest extends TestCase
                 'chat' => ['id' => 123],
             ],
             'update_id' => 456,
-        ]));
+        ]), $bot);
 
         self::assertSame('  hello  ', $update->message?->text);
     }
@@ -82,14 +82,14 @@ final class UpdateFactoryTest extends TestCase
     public function testHandlesMissingTextGracefully(): void
     {
         $factory = new UpdateFactory();
-
+        $bot = new \Aymericcucherousset\TelegramBot\Bot\Bot(new \Tests\Fake\FakeTelegramClient());
         $update = $factory->fromJson((string) json_encode([
             'message' => [
                 'message_id' => 190,
                 'chat' => ['id' => 123],
             ],
             'update_id' => 456,
-        ]));
+        ]), $bot);
         self::assertNull($update->message?->text);
         self::assertFalse($update->isCommand());
     }
@@ -97,7 +97,7 @@ final class UpdateFactoryTest extends TestCase
     public function testHandlesMissingChatIdGracefully(): void
     {
         $factory = new UpdateFactory();
-
+        $bot = new \Aymericcucherousset\TelegramBot\Bot\Bot(new \Tests\Fake\FakeTelegramClient());
         self::expectException(\InvalidArgumentException::class);
         $factory->fromJson((string) json_encode([
             'message' => [
@@ -105,13 +105,13 @@ final class UpdateFactoryTest extends TestCase
                 'text' => 'hello',
             ],
             'update_id' => 456,
-        ]));
+        ]), $bot);
     }
 
     public function testCreatesUpdateFromCallbackQuery(): void
     {
         $factory = new UpdateFactory();
-
+        $bot = new \Aymericcucherousset\TelegramBot\Bot\Bot(new \Tests\Fake\FakeTelegramClient());
         $update = $factory->fromJson((string) json_encode([
             'callback_query' => [
                 'id' => 'abc123',
@@ -122,7 +122,7 @@ final class UpdateFactoryTest extends TestCase
                 ],
             ],
             'update_id' => 456,
-        ]));
+        ]), $bot);
 
         self::assertSame('callback_query', $update->type);
         self::assertSame('some_data', $update->callbackQuery?->data);

@@ -47,3 +47,15 @@ class HttpTelegramClientTest extends TestCase
 - Test factories: Quickly create Update, Message, and CallbackQuery objects.
 
 See the `tests/` directory for real-world examples and patterns.
+
+## Note on Bot and UpdateFactory
+
+When testing code that uses `UpdateFactory`, remember that it now requires a `Bot` instance as the second argument:
+
+```php
+use Aymericcucherousset\TelegramBot\Update\UpdateFactory;
+use Aymericcucherousset\TelegramBot\Bot\Bot;
+
+$bot = new Bot($client); // $client is your TelegramClientInterface implementation (can be a fake/mock)
+$update = UpdateFactory::fromJson($json, $bot);
+```

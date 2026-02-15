@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Aymericcucherousset\TelegramBot\Update;
 
+use Aymericcucherousset\TelegramBot\Bot\Bot;
+use Aymericcucherousset\TelegramBot\Update\Message;
+use Aymericcucherousset\TelegramBot\Update\Update;
 use Aymericcucherousset\TelegramBot\Value\ChatId;
 use Aymericcucherousset\TelegramBot\Value\UserId;
-use Aymericcucherousset\TelegramBot\Update\Update;
-use Aymericcucherousset\TelegramBot\Update\Message;
 
 /**
  * @phpstan-type TelegramJsonMessage array{
@@ -27,7 +28,7 @@ use Aymericcucherousset\TelegramBot\Update\Message;
  */
 final class UpdateFactory
 {
-    public static function fromJson(string $json): Update
+    public static function fromJson(string $json, Bot $bot): Update
     {
         $payload = json_decode($json, true);
 
@@ -69,6 +70,7 @@ final class UpdateFactory
             }
             return new Update(
                 id: (int) $payload['update_id'],
+                bot: $bot,
                 message: new Message(
                     id: (int) $payload['message']['message_id'],
                     chatId: new ChatId($chatIdValue),
@@ -107,6 +109,7 @@ final class UpdateFactory
             }
             return new Update(
                 id: (int) $payload['update_id'],
+                bot: $bot,
                 message: new Message(
                     id: (int) $callback['message']['message_id'],
                     chatId: new ChatId($chatIdValue),
