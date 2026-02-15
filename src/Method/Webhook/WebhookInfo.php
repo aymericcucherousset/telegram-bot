@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TelegramBot\Method\Webhook;
+namespace Aymericcucherousset\TelegramBot\Method\Webhook;
 
 use Aymericcucherousset\TelegramBot\Method\TelegramMethod;
 
