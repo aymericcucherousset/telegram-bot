@@ -17,7 +17,7 @@
 | Bot       | [setMyDescription](../src/Method/Bot/SetMyDescription.php)                              |     ✅    |
 | Bot       | [getMyShortDescription](../src/Method/Bot/GetMyShortDescription.php)                    |     ✅    |
 | Bot       | [setMyShortDescription](../src/Method/Bot/SetMyShortDescription.php)                    |     ✅    |
-| Webhook   | setWebhook                                                                              |     ❌    |
+| Webhook   | [setWebhook](../src/Method/Webhook/SetWebhook.php)                                      |     ✅    |
 | Webhook   | deleteWebhook                                                                           |     ❌    |
 | Messages  | sendAudio                                                                               |     ❌    |
 | Messages  | sendDocument                                                                            |     ❌    |
