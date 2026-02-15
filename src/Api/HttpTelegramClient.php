@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Aymericcucherousset\TelegramBot\Api;
 
-use Aymericcucherousset\TelegramBot\Method\TelegramMethod;
-use Psr\Http\Client\ClientInterface;
-use Psr\Http\Client\ClientExceptionInterface;
-use Psr\Http\Message\RequestFactoryInterface as PsrRequestFactoryInterface;
-use Psr\Http\Message\StreamFactoryInterface;
 use Aymericcucherousset\TelegramBot\Exception\ApiException;
+use Aymericcucherousset\TelegramBot\Method\TelegramMethod;
+use Psr\Http\Client\ClientExceptionInterface;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface as PsrRequestFactoryInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\StreamFactoryInterface;
 
 final class HttpTelegramClient implements TelegramClientInterface
 {
@@ -54,20 +55,80 @@ final class HttpTelegramClient implements TelegramClientInterface
     }
 
     /**
-     * @param mixed[] $payload
-     *
-     * @return array<string, mixed> The 'result' field from the Telegram API response.
+     * @param array<string, mixed> $payload
      */
-    private function request(string $method, array $payload): array
+    private function containsFile(array $payload): bool
     {
-        $request = $this->requestFactory->create(
+        foreach ($payload as $value) {
+            if (\is_resource($value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param array<string, mixed> $payload
+     */
+    private function buildMultipartRequest(string $method, array $payload): RequestInterface
+    {
+        $boundary = uniqid();
+        $body = '';
+
+        foreach ($payload as $name => $value) {
+            /** @var string|resource $value */
+
+            $body .= "--$boundary\r\n";
+            $body .= "Content-Disposition: form-data; name=\"$name\"";
+
+            if (\is_resource($value)) {
+                $meta = stream_get_meta_data($value);
+                $filename = basename($meta['uri'] ?? 'file.jpg');
+
+                $body .= "; filename=\"$filename\"\r\n";
+                $body .= "Content-Type: application/octet-stream\r\n\r\n";
+                $body .= stream_get_contents($value) . "\r\n";
+            } else {
+                $body .= "\r\n\r\n$value\r\n";
+            }
+        }
+
+        $body .= "--$boundary--";
+
+        return $this->requestFactory->create(
+            'POST',
+            self::API_BASE . $this->token . '/' . $method,
+            ['Content-Type' => "multipart/form-data; boundary=$boundary"],
+            $body
+        );
+    }
+
+    /**
+     * @param array<string, mixed> $payload
+     */
+    private function buildJsonRequest(string $method, array $payload): RequestInterface
+    {
+        return $this->requestFactory->create(
             'POST',
             self::API_BASE . $this->token . '/' . $method,
             ['Content-Type' => 'application/json'],
             json_encode($payload, JSON_THROW_ON_ERROR)
         );
+    }
 
+    /**
+     * @param array<string, mixed> $payload
+     *
+     * @return array<string, mixed> The 'result' field from the Telegram API response.
+     */
+    private function request(string $method, array $payload): array
+    {
         try {
+            if ($this->containsFile($payload)) {
+                $request = $this->buildMultipartRequest($method, $payload);
+            } else {
+                $request = $this->buildJsonRequest($method, $payload);
+            }
             $response = $this->httpClient->sendRequest($request);
         } catch (ClientExceptionInterface $e) {
             throw new ApiException(
