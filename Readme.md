@@ -15,7 +15,7 @@
 
 - Promote Clean Architecture and DDD for Telegram bots
 - Provide a strict, type-safe, and extensible API
-- Encapsulate Telegram API calls via OutboundMessageInterface
+- Encapsulate [Telegram API](https://core.telegram.org/bots/api) calls via OutboundMessageInterface
 - Support for value objects and inline keyboards
 - Easy integration with any PSR-18 HTTP client
 
