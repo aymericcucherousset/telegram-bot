@@ -86,8 +86,8 @@
 | User      | getMe                                                                                   |     ❌    |
 | User      | logOut                                                                                  |     ❌    |
 | User      | close                                                                                   |     ❌    |
-| Other     | setWebhook                                                                              |     ❌    |
-| Other     | deleteWebhook                                                                           |     ❌    |
+| Other     | [setWebhook](../src/Method/Webhook/SetWebhook.php)                                      |     ✅    |
+| Other     | [deleteWebhook](../src/Method/Webhook/DeleteWebhook.php)                                |     ✅    |
 | Other     | [getWebhookInfo](../src/Method/Webhook/WebhookInfo.php)                                 |     ✅    |
 | Other     | setPassportDataErrors                                                                   |     ❌    |
 | Other     | sendSticker                                                                             |     ❌    |
