@@ -20,7 +20,7 @@
 | Webhook   | [setWebhook](../src/Method/Webhook/SetWebhook.php)                                      |     ✅    |
 | Webhook   | [deleteWebhook](../src/Method/Webhook/DeleteWebhook.php)                                |     ✅    |
 | Messages  | [sendAudio](../src/Method/Message/AudioMessage.php)                                    |     ✅    |
-| Messages  | sendDocument                                                                            |     ❌    |
+| Messages  | [sendDocument](../src/Method/Message/SendDocument.php)                                 |     ✅    |
 | Messages  | sendVideo                                                                               |     ❌    |
 | Messages  | sendAnimation                                                                           |     ❌    |
 | Messages  | sendVoice                                                                               |     ❌    |
