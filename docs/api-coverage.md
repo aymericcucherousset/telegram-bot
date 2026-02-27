@@ -19,9 +19,9 @@
 | Bot       | [setMyShortDescription](../src/Method/Bot/SetMyShortDescription.php)                    |     ✅    |
 | Webhook   | [setWebhook](../src/Method/Webhook/SetWebhook.php)                                      |     ✅    |
 | Webhook   | [deleteWebhook](../src/Method/Webhook/DeleteWebhook.php)                                |     ✅    |
-| Messages  | [sendAudio](../src/Method/Message/AudioMessage.php)                                    |     ✅    |
-| Messages  | [sendDocument](../src/Method/Message/SendDocument.php)                                 |     ✅    |
-| Messages  | sendVideo                                                                               |     ❌    |
+| Messages  | [sendAudio](../src/Method/Message/AudioMessage.php)                                     |     ✅    |
+| Messages  | [sendDocument](../src/Method/Message/SendDocument.php)                                  |     ✅    |
+| Messages  | [sendVideo](../src/Method/Message/VideoMessage.php)                                     |     ✅    |
 | Messages  | sendAnimation                                                                           |     ❌    |
 | Messages  | sendVoice                                                                               |     ❌    |
 | Messages  | sendVideoNote                                                                           |     ❌    |
