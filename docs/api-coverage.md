@@ -56,7 +56,7 @@
 | Chat      | getChatMember                                                                           |     ❌    |
 | Chat      | setChatStickerSet                                                                       |     ❌    |
 | Chat      | deleteChatStickerSet                                                                    |     ❌    |
-| Chat      | setChatPhoto                                                                            |     ❌    |
+| Chat      | [setChatPhoto](../src/Method/Chat/SetChatPhoto.php)                                     |     ✅    |
 | Chat      | deleteChatPhoto                                                                         |     ❌    |
 | Chat      | setChatTitle                                                                            |     ❌    |
 | Chat      | setChatDescription                                                                      |     ❌    |
