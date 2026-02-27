@@ -58,7 +58,7 @@
 | Chat      | deleteChatStickerSet                                                                    |     ❌    |
 | Chat      | [setChatPhoto](../src/Method/Chat/SetChatPhoto.php)                                     |     ✅    |
 | Chat      | [deleteChatPhoto](../src/Method/Chat/DeleteChatPhoto.php)                               |     ✅    |
-| Chat      | setChatTitle                                                                            |     ❌    |
+| Chat      | [setChatTitle](../src/Method/Chat/SetChatTitle.php)                                     |     ✅    |
 | Chat      | setChatDescription                                                                      |     ❌    |
 | Chat      | pinChatMessage                                                                          |     ❌    |
 | Chat      | unpinChatMessage                                                                        |     ❌    |
