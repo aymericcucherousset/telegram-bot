@@ -53,7 +53,7 @@
 | Chat      | getChat                                                                                 |     ❌    |
 | Chat      | getChatAdministrators                                                                   |     ❌    |
 | Chat      | [getChatMemberCount](../src/Method/Chat/GetChatMemberCount.php)                         |     ✅    |
-| Chat      | getChatMember                                                                           |     ❌    |
+| Chat      | [getChatMember](../src/Method/Chat/GetChatMember.php)                                   |     ✅    |
 | Chat      | setChatStickerSet                                                                       |     ❌    |
 | Chat      | deleteChatStickerSet                                                                    |     ❌    |
 | Chat      | [setChatPhoto](../src/Method/Chat/SetChatPhoto.php)                                     |     ✅    |
@@ -63,11 +63,9 @@
 | Chat      | pinChatMessage                                                                          |     ❌    |
 | Chat      | unpinChatMessage                                                                        |     ❌    |
 | Chat      | [leaveChat](../src/Method/Chat/LeaveChat.php)                                           |     ✅    |
-| Chat      | unbanChatMember                                                                         |     ❌    |
 | Chat      | [unbanChatMember](../src/Method/Chat/UnbanChatMember.php)                               |     ✅    |
 | Chat      | restrictChatMember                                                                      |     ❌    |
 | Chat      | promoteChatMember                                                                       |     ❌    |
-| Chat      | banChatMember                                                                           |     ❌    |
 | Chat      | [banChatMember](../src/Method/Chat/BanChatMember.php)                                   |     ✅    |
 | Chat      | unbanChatSenderChat                                                                     |     ❌    |
 | Chat      | setChatPermissions                                                                      |     ❌    |
