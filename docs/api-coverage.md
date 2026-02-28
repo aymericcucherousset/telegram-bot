@@ -77,7 +77,7 @@
 | Chat      | declineChatJoinRequest                                                                  |     ❌    |
 | Chat      | setChatMenuButton                                                                       |     ❌    |
 | Chat      | getChatMenuButton                                                                       |     ❌    |
-| Chat      | setMyCommands                                                                           |     ❌    |
+| Chat      | [setMyCommands](../src/Method/Chat/SetMyCommands.php)                                   |     ✅    |
 | Chat      | [getMyCommands](../src/Method/Chat/GetMyCommands.php)                                   |     ✅    |
 | Chat      | setMyDefaultAdministratorRights                                                         |     ❌    |
 | Chat      | getMyDefaultAdministratorRights                                                         |     ❌    |
