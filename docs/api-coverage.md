@@ -62,7 +62,7 @@
 | Chat      | [setChatDescription](../src/Method/Chat/SetChatDescription.php)                         |     ✅    |
 | Chat      | pinChatMessage                                                                          |     ❌    |
 | Chat      | unpinChatMessage                                                                        |     ❌    |
-| Chat      | leaveChat                                                                               |     ❌    |
+| Chat      | [leaveChat](../src/Method/Chat/LeaveChat.php)                                           |     ✅    |
 | Chat      | unbanChatMember                                                                         |     ❌    |
 | Chat      | restrictChatMember                                                                      |     ❌    |
 | Chat      | promoteChatMember                                                                       |     ❌    |
