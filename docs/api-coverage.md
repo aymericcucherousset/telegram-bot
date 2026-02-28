@@ -83,7 +83,7 @@
 | Chat      | getMyDefaultAdministratorRights                                                         |     ❌    |
 | User      | getUserProfilePhotos                                                                    |     ❌    |
 | User      | getFile                                                                                 |     ❌    |
-| User      | getMe                                                                                   |     ❌    |
+| User      | [getMe](../src/Method/User/GetMe.php)                                                   |     ✅    |
 | User      | logOut                                                                                  |     ❌    |
 | User      | close                                                                                   |     ❌    |
 | Other     | [setWebhook](../src/Method/Webhook/SetWebhook.php)                                      |     ✅    |
