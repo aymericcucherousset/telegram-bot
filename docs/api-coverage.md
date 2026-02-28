@@ -52,7 +52,7 @@
 | Callback  | answerWebAppQuery                                                                       |     ❌    |
 | Chat      | getChat                                                                                 |     ❌    |
 | Chat      | getChatAdministrators                                                                   |     ❌    |
-| Chat      | getChatMemberCount                                                                      |     ❌    |
+| Chat      | [getChatMemberCount](../src/Method/Chat/GetChatMemberCount.php)                         |     ✅    |
 | Chat      | getChatMember                                                                           |     ❌    |
 | Chat      | setChatStickerSet                                                                       |     ❌    |
 | Chat      | deleteChatStickerSet                                                                    |     ❌    |
