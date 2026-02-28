@@ -50,8 +50,8 @@
 | Messages  | getGameHighScores                                                                       |     ❌    |
 | Callback  | answerInlineQuery                                                                       |     ❌    |
 | Callback  | answerWebAppQuery                                                                       |     ❌    |
-| Chat      | getChat                                                                                 |     ❌    |
-| Chat      | getChatAdministrators                                                                   |     ❌    |
+| Chat      | [getChat](../src/Method/Chat/GetChat.php)                                               |     ✅    |
+| Chat      | [getChatAdministrators](../src/Method/Chat/GetChatAdministrators.php)                   |     ✅    |
 | Chat      | [getChatMemberCount](../src/Method/Chat/GetChatMemberCount.php)                         |     ✅    |
 | Chat      | [getChatMember](../src/Method/Chat/GetChatMember.php)                                   |     ✅    |
 | Chat      | setChatStickerSet                                                                       |     ❌    |
