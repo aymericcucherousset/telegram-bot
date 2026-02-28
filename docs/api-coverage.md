@@ -78,7 +78,7 @@
 | Chat      | setChatMenuButton                                                                       |     ❌    |
 | Chat      | getChatMenuButton                                                                       |     ❌    |
 | Chat      | setMyCommands                                                                           |     ❌    |
-| Chat      | getMyCommands                                                                           |     ❌    |
+| Chat      | [getMyCommands](../src/Method/Chat/GetMyCommands.php)                                   |     ✅    |
 | Chat      | setMyDefaultAdministratorRights                                                         |     ❌    |
 | Chat      | getMyDefaultAdministratorRights                                                         |     ❌    |
 | User      | getUserProfilePhotos                                                                    |     ❌    |
