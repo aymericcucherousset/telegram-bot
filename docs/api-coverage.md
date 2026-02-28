@@ -59,7 +59,7 @@
 | Chat      | [setChatPhoto](../src/Method/Chat/SetChatPhoto.php)                                     |     ✅    |
 | Chat      | [deleteChatPhoto](../src/Method/Chat/DeleteChatPhoto.php)                               |     ✅    |
 | Chat      | [setChatTitle](../src/Method/Chat/SetChatTitle.php)                                     |     ✅    |
-| Chat      | setChatDescription                                                                      |     ❌    |
+| Chat      | [setChatDescription](../src/Method/Chat/SetChatDescription.php)                         |     ✅    |
 | Chat      | pinChatMessage                                                                          |     ❌    |
 | Chat      | unpinChatMessage                                                                        |     ❌    |
 | Chat      | leaveChat                                                                               |     ❌    |
