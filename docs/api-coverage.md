@@ -26,7 +26,7 @@
 | Messages  | sendVoice                                                                               |     ❌    |
 | Messages  | sendVideoNote                                                                           |     ❌    |
 | Messages  | sendMediaGroup                                                                          |     ❌    |
-| Messages  | sendLocation                                                                            |     ❌    |
+| Messages  | [sendLocation](../src/Method/Message/SendLocation.php)                                  |     ✅    |
 | Messages  | sendVenue                                                                               |     ❌    |
 | Messages  | sendContact                                                                             |     ❌    |
 | Messages  | sendPoll                                                                                |     ❌    |
