@@ -64,9 +64,11 @@
 | Chat      | unpinChatMessage                                                                        |     ❌    |
 | Chat      | [leaveChat](../src/Method/Chat/LeaveChat.php)                                           |     ✅    |
 | Chat      | unbanChatMember                                                                         |     ❌    |
+| Chat      | [unbanChatMember](../src/Method/Chat/UnbanChatMember.php)                               |     ✅    |
 | Chat      | restrictChatMember                                                                      |     ❌    |
 | Chat      | promoteChatMember                                                                       |     ❌    |
 | Chat      | banChatMember                                                                           |     ❌    |
+| Chat      | [banChatMember](../src/Method/Chat/BanChatMember.php)                                   |     ✅    |
 | Chat      | unbanChatSenderChat                                                                     |     ❌    |
 | Chat      | setChatPermissions                                                                      |     ❌    |
 | Chat      | exportChatInviteLink                                                                    |     ❌    |
