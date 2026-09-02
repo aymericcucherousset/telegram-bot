@@ -56,7 +56,8 @@ final class HttpTelegramClientTest extends TestCase
 
         $response = $this->createMock(ResponseInterface::class);
         $response->method('getStatusCode')->willReturn(200);
-        $response->method('getBody')->willReturn(json_encode([
+        $stream = $this->createMock(\Psr\Http\Message\StreamInterface::class);
+        $stream->method('__toString')->willReturn(json_encode([
             'ok' => true,
             'result' => [
                 'message_id' => 1,
@@ -65,6 +66,7 @@ final class HttpTelegramClientTest extends TestCase
                 'date' => time(),
             ],
         ]));
+        $response->method('getBody')->willReturn($stream);
 
         $http = $this->createMock(ClientInterface::class);
         $http->expects(self::once())
@@ -103,7 +105,8 @@ final class HttpTelegramClientTest extends TestCase
 
         $response = $this->createMock(ResponseInterface::class);
         $response->method('getStatusCode')->willReturn(200);
-        $response->method('getBody')->willReturn(json_encode([
+        $stream = $this->createMock(\Psr\Http\Message\StreamInterface::class);
+        $stream->method('__toString')->willReturn(json_encode([
             'ok' => true,
             'result' => [
                 'message_id' => 1,
@@ -112,6 +115,7 @@ final class HttpTelegramClientTest extends TestCase
                 'date' => time(),
             ],
         ]));
+        $response->method('getBody')->willReturn($stream);
 
         $http = $this->createMock(ClientInterface::class);
         $http->method('sendRequest')->willReturn($response);
@@ -154,7 +158,9 @@ final class HttpTelegramClientTest extends TestCase
 
         $response = $this->createMock(ResponseInterface::class);
         $response->method('getStatusCode')->willReturn(500);
-        $response->method('getBody')->willReturn('fail');
+        $stream = $this->createMock(\Psr\Http\Message\StreamInterface::class);
+        $stream->method('__toString')->willReturn('fail');
+        $response->method('getBody')->willReturn($stream);
 
         $http = $this->createMock(ClientInterface::class);
         $http->method('sendRequest')->willReturn($response);
@@ -178,7 +184,9 @@ final class HttpTelegramClientTest extends TestCase
 
         $response = $this->createMock(ResponseInterface::class);
         $response->method('getStatusCode')->willReturn(200);
-        $response->method('getBody')->willReturn(json_encode(['ok' => false, 'description' => 'fail']));
+        $stream = $this->createMock(\Psr\Http\Message\StreamInterface::class);
+        $stream->method('__toString')->willReturn(json_encode(['ok' => false, 'description' => 'fail']));
+        $response->method('getBody')->willReturn($stream);
 
         $http = $this->createMock(ClientInterface::class);
         $http->method('sendRequest')->willReturn($response);
@@ -219,7 +227,8 @@ final class HttpTelegramClientTest extends TestCase
 
         $response = $this->createMock(ResponseInterface::class);
         $response->method('getStatusCode')->willReturn(200);
-        $response->method('getBody')->willReturn(json_encode([
+        $stream = $this->createMock(\Psr\Http\Message\StreamInterface::class);
+        $stream->method('__toString')->willReturn(json_encode([
             'ok' => true,
             'result' => [
                 'message_id' => 1,
@@ -228,6 +237,7 @@ final class HttpTelegramClientTest extends TestCase
                 'date' => time(),
             ],
         ]));
+        $response->method('getBody')->willReturn($stream);
 
         $http = $this->createMock(ClientInterface::class);
         $http->expects(self::once())
